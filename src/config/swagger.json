@@ -1,0 +1,641 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "Jarvis API",
+    "termsOfService": "http://swagger.io/terms/",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:8081",
+  "basePath": "/v1",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/financeiro/renda/variavel": {
+      "post": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "Cria novo papel",
+        "description": "",
+        "operationId": "addAcaoVariavel",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VariavelCadastrarPapelDTO"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Acao cadastrada"
+          }
+        }
+      }
+    },
+    "/financeiro/renda/variavel/{id}": {
+      "delete": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "Deletar papel",
+        "description": "",
+        "operationId": "deleteAcaoVariavel",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da acao",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VariavelDeletarPapelDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Acao deleta"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "Alterar papel",
+        "description": "",
+        "operationId": "alterarAcaoVariavel",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da acao",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VariavelAlterarPapelDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Acao alteracao"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "Adicionar ou remover papel",
+        "description": "",
+        "operationId": "addOrRemoveAcaoVariavel",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da acao",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VariavelAddOrRemovePapelDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Adiconar ou remover acao"
+          }
+        }
+      }
+    },
+    "/financeiro/renda/variavel/consolidado": {
+      "get": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "Consolidado de renda variavel",
+        "description": "",
+        "operationId": "consolidado",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Consolidado de renda variavel"
+          }
+        }
+      }
+    },
+    "/financeiro/renda/variavel/consolidado/fiis": {
+      "get": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "Consolidado de papel de fundos imobiliarios",
+        "description": "",
+        "operationId": "consolidadoFiis",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Consolidado de FIIs"
+          }
+        }
+      }
+    },
+    "/financeiro/renda/variavel/consolidado/acoes": {
+      "get": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "Consolidado de papel de acoes",
+        "description": "",
+        "operationId": "consolidadoAcoes",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Consolidado de Acoes"
+          }
+        }
+      }
+    },
+    "/financeiro/renda/fixa": {
+      "post": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "Cria novo papel",
+        "description": "",
+        "operationId": "addAcaoFixa",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FixaCadastrarPapelDTO"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Acao cadastrada"
+          }
+        }
+      }
+    },
+    "/financeiro/renda/fixa/{id}": {
+      "delete": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "Deletar papel",
+        "description": "",
+        "operationId": "deleteAcaoFixa",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da acao",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FixaDeletarPapelDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Acao deleta"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "Alterar papel",
+        "description": "",
+        "operationId": "alterarAcaoFixa",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da acao",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FixaAlterarPapelDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Acao alteracao"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "Adicionar ou remover papel",
+        "description": "",
+        "operationId": "addOrRemoveAcaoFixa",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da acao",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FixaAddOrRemovePapelDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Adiconar ou remover acao"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "VariavelAddOrRemovePapelDto": {
+      "type": "object",
+      "required": [
+        "qtn",
+        "valor",
+        "data",
+        "isAdd"
+      ],
+      "properties": {
+        "qtn": {
+          "type": "number"
+        },
+        "valor": {
+          "type": "number"
+        },
+        "data": {
+          "type": "string"
+        },
+        "isAdd": {
+          "type": "boolean"
+        }
+      }
+    },
+    "VariavelAlterarPapelDTO": {
+      "type": "object",
+      "required": [
+        "ticket",
+        "nome",
+        "valorAtual",
+        "variacaoDia",
+        "valorJusto",
+        "qntPapeis",
+        "porcentagemLucro",
+        "margemDeQtn",
+        "margemDeQtnDesejado",
+        "totalDoPapel",
+        "papelCorDeReferencia"
+      ],
+      "properties": {
+        "ticket": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "valorAtual": {
+          "type": "number"
+        },
+        "variacaoDia": {
+          "type": "number"
+        },
+        "valorJusto": {
+          "type": "number"
+        },
+        "qntPapeis": {
+          "type": "number"
+        },
+        "porcentagemLucro": {
+          "type": "number"
+        },
+        "margemDeQtn": {
+          "type": "number"
+        },
+        "margemDeQtnDesejado": {
+          "type": "number"
+        },
+        "totalDoPapel": {
+          "type": "number"
+        },
+        "papelCorDeReferencia": {
+          "type": "string"
+        }
+      }
+    },
+    "VariavelDeletarPapelDTO": {
+      "type": "object",
+      "required": [
+        "isDeletar"
+      ],
+      "properties": {
+        "isDeletar": {
+          "type": "boolean"
+        }
+      }
+    },
+    "VariavelCadastrarPapelDTO": {
+      "type": "object",
+      "required": [
+        "ticket",
+        "nome",
+        "valorAtual",
+        "variacaoDia",
+        "valorJusto",
+        "qntPapeis",
+        "porcentagemLucro",
+        "margemDeQtn",
+        "margemDeQtnDesejado",
+        "totalDoPapel",
+        "papelCorDeReferencia",
+        "tipoPapel"
+      ],
+      "properties": {
+        "ticket": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "valorAtual": {
+          "type": "number"
+        },
+        "variacaoDia": {
+          "type": "number"
+        },
+        "valorJusto": {
+          "type": "number"
+        },
+        "qntPapeis": {
+          "type": "number"
+        },
+        "porcentagemLucro": {
+          "type": "number"
+        },
+        "margemDeQtn": {
+          "type": "number"
+        },
+        "margemDeQtnDesejado": {
+          "type": "number"
+        },
+        "totalDoPapel": {
+          "type": "number"
+        },
+        "papelCorDeReferencia": {
+          "type": "string"
+        },
+        "tipoPapel": {
+          "type": "string"
+        }
+      }
+    },
+    "FixaAddOrRemovePapelDto": {
+      "type": "object",
+      "required": [
+        "qtn",
+        "valor",
+        "data",
+        "isAdd"
+      ],
+      "properties": {
+        "qtn": {
+          "type": "number"
+        },
+        "valor": {
+          "type": "number"
+        },
+        "data": {
+          "type": "string"
+        },
+        "isAdd": {
+          "type": "boolean"
+        }
+      }
+    },
+    "FixaAlterarPapelDTO": {
+      "type": "object",
+      "required": [
+        "ticket",
+        "nome",
+        "valorAtual",
+        "variacaoDia",
+        "qntPapeis",
+        "totalDoPapel",
+        "papelCorDeReferencia"
+      ],
+      "properties": {
+        "ticket": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "valorAtual": {
+          "type": "number"
+        },
+        "variacaoDia": {
+          "type": "number"
+        },
+        "qntPapeis": {
+          "type": "number"
+        },
+        "totalDoPapel": {
+          "type": "number"
+        },
+        "papelCorDeReferencia": {
+          "type": "string"
+        }
+      }
+    },
+    "FixaDeletarPapelDTO": {
+      "type": "object",
+      "required": [
+        "isDeletar"
+      ],
+      "properties": {
+        "isDeletar": {
+          "type": "boolean"
+        }
+      }
+    },
+    "FixaCadastrarPapelDTO": {
+      "type": "object",
+      "required": [
+        "ticket",
+        "nome",
+        "valorAtual",
+        "variacaoDia",
+        "qntPapeis",
+        "totalDoPapel",
+        "papelCorDeReferencia",
+        "tipoPapel"
+      ],
+      "properties": {
+        "ticket": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "valorAtual": {
+          "type": "number"
+        },
+        "variacaoDia": {
+          "type": "number"
+        },
+        "qntPapeis": {
+          "type": "number"
+        },
+        "totalDoPapel": {
+          "type": "number"
+        },
+        "papelCorDeReferencia": {
+          "type": "string"
+        },
+        "tipoPapel": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
