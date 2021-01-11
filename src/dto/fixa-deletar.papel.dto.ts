@@ -1,4 +1,3 @@
 export interface FixaDeletarPapelDTO {
-    isDeletar: boolean,
-    id: number
+    isDeletar: boolean
 }

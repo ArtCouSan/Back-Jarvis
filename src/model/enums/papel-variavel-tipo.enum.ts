@@ -1,0 +1,4 @@
+export const PAPEL_VARIAVEL_TIPO_ENUM = {
+	ACOES: "ACOES",
+	FIIS: "FIIS",
+}

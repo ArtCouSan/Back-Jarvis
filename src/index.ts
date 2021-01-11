@@ -2,24 +2,39 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { routes } from './routes/routes';
+import { createConnection } from 'typeorm';
 
-const app = express();
+createConnection({
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "root",
+    "database": "local",
+    "synchronize": true,
+    "logging": false,
+    "entities": [__dirname + "/model/*.ts"]
+}).then(async connection => {
 
-app.use(express.json());
+    const app = express();
 
-app.use(bodyParser.json());
+    app.use(express.json());
 
-app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
 
-// middleware
-app.use((req: any, res: any, next: any) => {
-    // cors
-    app.use(cors());
-    next();
-});
+    app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', routes);
+    // middleware
+    app.use((req: any, res: any, next: any) => {
+        // cors
+        app.use(cors());
+        next();
+    });
 
-app.listen(8081, () => {
-    console.log('Servidor rodando');
-});
+    app.use('/', routes);
+
+    app.listen(8081, () => {
+        console.log('Servidor rodando');
+    });
+
+}).catch(error => console.log("TypeORM connection error: ", error));
