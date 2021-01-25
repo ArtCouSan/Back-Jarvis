@@ -10,14 +10,14 @@ export class PapelVariavelHistoricoModel {
     @Column()
     idPapel: number;
 
-    @Column()
+    @Column("decimal", { precision: 10, scale: 2 })
     valorAtual: number;
 
     @Column()
     qntPapeis: number;
 
     @Column()
-    data: Date;
+    data: string;
 
     @Column()
     isAdd: boolean;

@@ -1,6 +1,7 @@
+import { Patrimonio } from "./patrimonio.model";
 import { RendaFixaModel } from "./renda-fixa.model";
 
 export interface ConsolidadoRendaFixaModel {
-    patrimonioTotal: number,
+    patrimonioTotal: Patrimonio,
     renda: Array<RendaFixaModel>
 }

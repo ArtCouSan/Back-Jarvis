@@ -1,10 +1,16 @@
-import { getRepository } from "typeorm";
+import cheerio from 'cheerio';
+import request from 'request';
+import { getManager, getRepository } from "typeorm";
 import { FixaAddOrRemovePapelDto } from "../dto/fixa-add-remove.papel.dto";
 import { FixaAlterarPapelDTO } from "../dto/fixa-alterar.papel.dto";
 import { FixaCadastrarPapelDTO } from "../dto/fixa-cadastrar.papel.dto";
 import { FixaDeletarPapelDTO } from "../dto/fixa-deletar.papel.dto";
+import { ConsolidadoRendaVariavelModel } from "../model/consolidado-renda-variavel.model";
+import { ConsolidadoSelicModel } from "../model/consolidado-selic.model";
 import { PapelFixaHistoricoModel } from "../model/papel-fixa-historico.model";
 import { PapelSelicModel } from "../model/papel-selic.model";
+import { Patrimonio } from "../model/patrimonio.model";
+import { RendaFixaModel } from '../model/renda-fixa.model';
 
 export class PapelFixaService {
 
@@ -17,11 +23,10 @@ export class PapelFixaService {
         papel.ticket = papelDTO.ticket;
         papel.nome = papelDTO.nome;
         papel.valorAtual = papelDTO.valorAtual;
-        papel.variacaoDia = 0;
         papel.qntPapeis = papelDTO.qntPapeis;
         papel.totalDoPapel = papelDTO.totalDoPapel;
         papel.papelCorDeReferencia = papelDTO.papelCorDeReferencia;
-        papel.dataCompra = new Date();
+        papel.dataCompra = new Date().toISOString();
         papel.status = true;
 
         const responsePapelFixa = await getRepository(PapelSelicModel).save(papel);
@@ -50,10 +55,12 @@ export class PapelFixaService {
                     if (papelDTO.isAdd) {
 
                         resultPapelFixa.qntPapeis = resultPapelFixa.qntPapeis + papelDTO.qtn;
+                        resultPapelFixa.totalDoPapel = resultPapelFixa.qntPapeis * resultPapelFixa.valorAtual;
 
                     } else {
 
                         resultPapelFixa.qntPapeis = resultPapelFixa.qntPapeis - papelDTO.qtn;
+                        resultPapelFixa.totalDoPapel = resultPapelFixa.qntPapeis * resultPapelFixa.valorAtual;
 
                     }
 
@@ -61,7 +68,7 @@ export class PapelFixaService {
                     historicoPapel.isAdd = papelDTO.isAdd;
                     historicoPapel.qntPapeis = papelDTO.qtn;
                     historicoPapel.valorAtual = papelDTO.valor;
-                    historicoPapel.data = new Date();
+                    historicoPapel.data = papelDTO.data;
 
                     getRepository(PapelFixaHistoricoModel).save(historicoPapel);
 
@@ -118,10 +125,9 @@ export class PapelFixaService {
                     resultPapelFixa.ticket = papelDTO.ticket ? papelDTO.ticket : resultPapelFixa.ticket;
                     resultPapelFixa.nome = papelDTO.nome ? papelDTO.nome : resultPapelFixa.nome;
                     resultPapelFixa.valorAtual = papelDTO.valorAtual ? papelDTO.valorAtual : resultPapelFixa.valorAtual;
-                    resultPapelFixa.variacaoDia = 0;
                     resultPapelFixa.qntPapeis = papelDTO.qntPapeis ? papelDTO.qntPapeis : resultPapelFixa.qntPapeis;
                     resultPapelFixa.papelCorDeReferencia = papelDTO.papelCorDeReferencia ? papelDTO.papelCorDeReferencia : resultPapelFixa.papelCorDeReferencia;
-                    resultPapelFixa.dataCompra = new Date();
+                    resultPapelFixa.dataCompra = new Date().toISOString();
                     resultPapelFixa.status = true;
 
                     return getRepository(PapelSelicModel).save(resultPapelFixa);
@@ -141,5 +147,35 @@ export class PapelFixaService {
 
     }
 
+    public async consolidadoSelic(): Promise<any> {
+
+        const listaPapeis: Array<PapelSelicModel> = await getRepository(PapelSelicModel).createQueryBuilder("papel").getMany();
+
+        const patrimonio: Patrimonio = await getManager().query(`select sum(psm."valorAtual") as "value" from papel_selic_model psm group by psm."tipoPapel" ;`);
+
+        const consolidadoSelic: ConsolidadoSelicModel = {
+            grafico: {},
+            papeis: listaPapeis,
+            patrimonio: patrimonio
+        }
+
+        return Promise.resolve(consolidadoSelic);
+    }
+
+    public async consolidado(): Promise<any> {
+
+        const patrimonio: Patrimonio = await getManager().query(`select sum(psm."totalDoPapel") as "value" from papel_selic_model psm group by psm."tipoPapel" ;`);
+
+        let lista: Array<RendaFixaModel> =
+            await getManager().query(`select sum(psm."totalDoPapel") as "patrimonio", psm."tipoPapel" as "tipoRenda" from papel_selic_model psm  group by "tipoRenda"`);
+
+
+        const consolidado: ConsolidadoRendaVariavelModel = {
+            patrimonioTotal: patrimonio,
+            renda: lista
+        }
+
+        return Promise.resolve(consolidado);
+    }
 }
 

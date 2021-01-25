@@ -1,6 +1,6 @@
 export interface VariavelAddOrRemovePapelDto {
     qtn: number,
     valor: number,
-    data: Date,
+    data: string,
     isAdd: boolean
 }

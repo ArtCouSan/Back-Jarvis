@@ -7,5 +7,6 @@ export interface VariavelAlterarPapelDTO {
     qntPapeis: number,
     margemDeQtn: number,
     margemDeQtnDesejado: number,
-    papelCorDeReferencia: string
+    papelCorDeReferencia: string,
+    setor: string
 }

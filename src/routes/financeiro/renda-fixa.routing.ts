@@ -7,10 +7,14 @@ const router = express.Router();
 
 router.post('/', papelFixaController.savePapel);
 
+router.post('/deletar/:id', papelFixaController.deletePapel);
+
 router.post('/:id', papelFixaController.addOrRemovePapel);
 
-router.delete('/:id', papelFixaController.deletePapel);
-
 router.put('/:id', papelFixaController.atualizarPapel);
+
+router.get('/consolidado', papelFixaController.consolidado);
+
+router.get('/consolidado/selic', papelFixaController.consolidadoSelic);
 
 export const routeFixaVariavel = router;

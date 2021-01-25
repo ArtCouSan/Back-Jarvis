@@ -39,9 +39,27 @@ export class PapelFixaController {
         });
     }
     
-    atualizarPapel = async (req: Request, res: Response) => {
+    public atualizarPapel = async (req: Request, res: Response) => {
         const papelDTO = req.body as FixaAlterarPapelDTO;
         papelFixaService.alterarPapel(req.params.id, papelDTO)
+        .then(result => {
+            res.status(200).json(result);
+        }).catch(error =>{
+            res.status(500).json(error);
+        });   
+    }
+
+    public consolidadoSelic = async (req: Request, res: Response) => {
+        papelFixaService.consolidadoSelic()
+        .then(result => {
+            res.status(200).json(result);
+        }).catch(error =>{
+            res.status(500).json(error);
+        });   
+    }
+
+    consolidado = async (req: Request, res: Response) => {
+        papelFixaService.consolidado()
         .then(result => {
             res.status(200).json(result);
         }).catch(error =>{

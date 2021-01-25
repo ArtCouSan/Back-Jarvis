@@ -16,34 +16,34 @@ export class PapelVariavelModel {
     @Column()
     nome: string;
 
-    @Column()
+    @Column("decimal", { precision: 10, scale: 2 })
     valorAtual: number;
 
     @Column()
-    variacaoDia: number;
+    variacaoDia: string;
 
     @Column()
     qntPapeis: number;
 
-    @Column()
+    @Column("decimal", { precision: 10, scale: 2 })
     totalDoPapel: number;
 
     @Column()
     papelCorDeReferencia: string;
 
     @Column()
-    dataCompra: Date;
+    dataCompra: string;
 
-    @Column()
+    @Column("decimal", { precision: 10, scale: 2 })
     valorJusto: number;
 
-    @Column()
+    @Column("decimal", { precision: 10, scale: 2 })
     porcentagemLucro: number;
 
-    @Column()
+    @Column("decimal", { precision: 10, scale: 2 })
     margemDeQtn: number;
 
-    @Column()
+    @Column("decimal", { precision: 10, scale: 2 })
     margemDeQtnDesejado: number;
 
     @Column()

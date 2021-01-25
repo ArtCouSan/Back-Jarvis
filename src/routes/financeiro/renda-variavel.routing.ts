@@ -9,18 +9,14 @@ router.post('/', papelVariavelController.savePapel);
 
 router.post('/:id', papelVariavelController.addOrRemovePapel);
 
-router.delete('/:id', papelVariavelController.deletePapel);
+router.post('/deletar/:id', papelVariavelController.deletePapel);
 
 router.put('/:id', papelVariavelController.atualizarPapel);
 
-router.get('/consolidado', (req, res) => {
-    res.send("Öi");
-});
+router.get('/consolidado', papelVariavelController.consolidado);
 
 router.get('/consolidado/fiis', papelVariavelController.consolidadoFiis);
 
-router.get('/consolidado/acoes', (req, res) => {
-    res.send("Öi");
-});
+router.get('/consolidado/acoes', papelVariavelController.consolidadoAcoes);
 
 export const routeRendaVariavel = router;

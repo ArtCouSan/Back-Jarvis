@@ -4,6 +4,10 @@ import cors from 'cors';
 import { routes } from './routes/routes';
 import { createConnection } from 'typeorm';
 
+var corsOptions = {
+    origin: 'http://localhost:4200'
+}
+
 createConnection({
     "type": "postgres",
     "host": "localhost",
@@ -27,7 +31,14 @@ createConnection({
     // middleware
     app.use((req: any, res: any, next: any) => {
         // cors
-        app.use(cors());
+
+        // Website you wish to allow to connect
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+        res.setHeader('Access-Control-Allow-Credentials', true);
+
+        app.use(cors(corsOptions));
         next();
     });
 

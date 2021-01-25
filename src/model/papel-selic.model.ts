@@ -16,23 +16,20 @@ export class PapelSelicModel {
     @Column()
     nome: string;
 
-    @Column()
+    @Column("decimal", { precision: 10, scale: 2 })
     valorAtual: number;
-
-    @Column()
-    variacaoDia: number;
 
     @Column()
     qntPapeis: number;
 
-    @Column()
+    @Column("decimal", { precision: 10, scale: 2 })
     totalDoPapel: number;
 
     @Column()
     papelCorDeReferencia: string;
 
     @Column()
-    dataCompra: Date;
+    dataCompra: string;
 
     @Column()
     status: boolean;

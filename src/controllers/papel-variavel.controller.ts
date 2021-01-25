@@ -58,5 +58,23 @@ export class PapelVariavelController {
         });   
     }
 
+    public consolidadoAcoes = async (req: Request, res: Response) => {
+        papelVariavelService.consolidadoAcoes()
+        .then(result => {
+            res.status(200).json(result);
+        }).catch(error =>{
+            res.status(500).json(error);
+        });   
+    }
+
+    public consolidado = async (req: Request, res: Response) => {
+        papelVariavelService.consolidado()
+        .then(result => {
+            res.status(200).json(result);
+        }).catch(error =>{
+            res.status(500).json(error);
+        });   
+    }
+
 }
 

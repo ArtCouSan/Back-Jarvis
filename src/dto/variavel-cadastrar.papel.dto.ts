@@ -4,9 +4,9 @@ export interface VariavelCadastrarPapelDTO {
     valorAtual: number,
     valorJusto: number,
     qntPapeis: number,
-    margemDeQtn: number,
     margemDeQtnDesejado: number,
-    totalDoPapel: number,
     papelCorDeReferencia: string,
-    tipoPapel: string
+    tipoPapel: string,
+    setor: string,
+    dataCompra: string
 }

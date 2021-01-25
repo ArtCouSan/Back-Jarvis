@@ -1,6 +1,6 @@
 export interface FixaAddOrRemovePapelDto {
     qtn: number,
     valor: number,
-    data: Date,
+    data: string,
     isAdd: boolean
 }
